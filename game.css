@@ -1,0 +1,205 @@
+.board,.board th,.board td {
+  padding: 0px;
+}
+
+.sf {
+  position: absolute;
+  height: 50px;
+  width: 50px;
+  padding: 5px;
+  background-color: rgb(120, 120, 40);
+  opacity:0.7;
+  font-size: 16px;
+  color: black;
+  border: 1px solid #555;
+  border-radius: 5px;
+  text-align: center;
+  line-height: 22px;
+}
+
+.board {
+  background: rgba(0,0,255,0.75);
+  font-size: 15px;
+  font-weight:bold;
+  text-align: center;
+}
+
+.board th,.board td {
+  width: 40px;
+  height: 6px;
+}
+
+.board tr:first-child th {
+  transform: scale(-1,-1);
+}
+
+.board td:nth-child(1) {
+  background-color: rgb(235,235,235);
+}
+
+.board td:nth-child(2), .board th:nth-child(2), .grain {
+  background-color: rgba(255,255,0,0.8);
+}
+
+.board td:nth-child(3), .board th:nth-child(3), .industry {
+  background-color: pink;
+}
+
+.board td:nth-child(4), .board th:nth-child(4), .bonds {
+  background-color: rgb(170,216,170);
+}
+
+.board td:nth-child(5), .board th:nth-child(5), .oil {
+  background-color: rgba(255,179,0,0.8);
+}
+
+.board td:nth-child(6), .board th:nth-child(6), .silver {
+  background-color: rgb(235,235,235);
+}
+
+.board td:nth-child(7), .board th:nth-child(7), .gold {
+  background-color: orange;
+}
+
+.board td:nth-child(8) {
+  background-color: rgb(235,235,235);
+  transform: scale(-1,-1);
+}
+
+.board tr:nth-child(22) td {
+  padding:2px;
+  border-top: 3px solid blue;
+  border-bottom: 3px solid blue;
+}
+
+#board {
+  -webkit-transform: rotate3d(4, 1, -4, 80deg);
+  transform: rotate3d(4, 1, -4, 80deg);
+  margin-top:-400px;
+  margin-left: 100px;
+  width:1200px;
+}
+
+.pawn {
+  position: absolute;
+  margin-top: -28px;
+  -webkit-transform: rotate3d(0, 0, 1, 70deg);
+  transform: rotate3d(0, 0, 1, 70deg);
+  z-index: 100;
+}
+
+
+#dice1, #dice2, #dice3 {
+  display:inline-block;
+  transform: rotateX(140deg) rotateZ(180deg) rotateY(150deg);
+  transform-style: preserve-3d;
+  position: relative;
+  margin-left: 100px ;
+  margin-top: 50px;
+  height: 50px;
+  width: 50px;
+  animation-duration: 0.1s;
+  animation-timing-function: linear;    
+  animation-iteration-count: 5;
+}
+
+#dice2 .sf, #dice3 .sf{
+  font-size: 20px;
+  text-shadow: 2px 2px black;
+  color:white;
+}
+
+#dice1 .sf {
+  text-shadow: 2px 2px white;
+}
+
+@keyframes roll {
+  from {transform: rotateX(0deg) rotateZ(0deg) rotateY(0deg);}
+  to {transform: rotateX(140deg) rotateZ(180deg) rotateY(150deg);}
+}
+
+
+
+.f1  {
+  transform: rotateX(90deg) translateZ(30px);
+}
+
+.f2 {
+  transform: translateZ(30px);
+}
+
+.f3 {
+  transform: rotateY(90deg) translateZ(30px);
+}
+
+.f4 {
+  transform: rotateY(180deg) translateZ(30px);
+}
+
+.f5 {
+  transform: rotateY(-90deg) translateZ(30px);
+}
+
+.f6 {
+  transform: rotateX(-90deg) rotate(180deg) translateZ(30px);
+}
+
+input {
+  width: 100px;
+  border-radius:5px;
+}
+.arrow {
+  width: 0; 
+  height: 0; 
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;  
+  position:absolute;
+  margin-left: 110px;
+}
+
+.up {
+  border-bottom: 7px solid black;
+  margin-top: -19px;
+}
+
+.down {
+  border-top: 7px solid black;
+  margin-top: -9px;
+}
+
+#roll {
+  display:inline-block;
+  color: red;
+  font-size: 25px;
+  text-decoration: none;
+  background: blue;
+  border-radius:5px;  
+  width:100px;
+  text-align: center;
+}
+
+#roll:hover {
+  color:blue;
+  background: red;
+}
+
+#roll:disabled {
+  background: grey;
+  color:black;
+}
+
+.equity, .cash {
+  font-size: 25px;
+  color: green;
+  text-shadow: 2px 1px black;
+}
+
+.equity {
+  position:absolute;
+  margin-left:550px;
+  margin-top: 450px;
+}
+
+.cash {
+  margin-top:-100px;
+}
