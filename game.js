@@ -1,3 +1,40 @@
+$(function() {
+  fillTable();
+  newGame();
+  $('body').on('click','#roll',function(){roll();});
+  $('.up').hover(
+    function(){$(this).css('border-bottom','7px solid '+ $(this).closest('tr').children('td').children('label').css('background-color'));    
+    },
+    function(){$(this).removeAttr('style')});
+  $('.down').hover(
+    function(){$(this).css('border-top','7px solid '+ $(this).closest('tr').children('td').children('label').css('background-color'));    
+    },function(){$(this).removeAttr('style')});
+  $('.up').click(function(){     
+  });
+  $('.up').click(function(){
+    var name = $(this).siblings('input').attr('id');
+    var id = findId(name);
+    var cost = dice1[id].factor*500;
+    var cash = $('#cash').text()*1;
+    var amount = $(this).siblings('input').val()*1;
+    if (cash >= cost) {
+      $('#cash').text(cash - cost);
+      $(this).siblings('input').val(amount + 500);
+    }
+  });
+  $('.down').click(function(){
+    var amount = $(this).siblings('input').val()*1;    
+    if (amount > 0) {
+      var name = $(this).siblings('input').attr('id');
+      var id = findId(name);
+      var cost = dice1[id].factor*500;
+      var cash = $('#cash').text()*1;      
+      $('#cash').text(cash + cost);
+      $(this).siblings('input').val(amount - 500);
+    };
+  });  
+});
+
 var Commodity = function(id,name,img) {
   this.id  = id;
   this.name = name;
@@ -37,22 +74,10 @@ var oil = new Commodity(4, "Oil",$('<img src = "images/oil.png" class = "pawn">'
 var silver = new Commodity(5, "Silver",$('<img src = "images/silver.png" class = "pawn">'));
 var gold = new Commodity(6, "Gold",$('<img src = "images/gold.png" class = "pawn">'));
 var dice1 = [grain, industry, bonds, oil, silver, gold];
-var dice2 = ["up", "down", "pay"];
-var dice3 = [5, 10, 20];
+var dice2 = ["up", "down", "pay", "down", "pay", "up"];
+var dice3 = [5, 10, 20, 10, 20, 5];
 
-$(function() {
-  fillTable();
-  newGame();
-  $('body').on('click','#roll',function(){roll();});
-  $('.up').hover(
-    function(){$(this).css('border-bottom','7px solid '+ $(this).closest('tr').children('td').children('label').css('background-color'));    
-    },
-    function(){$(this).removeAttr('style')});
-  $('.down').hover(
-    function(){$(this).css('border-top','7px solid '+ $(this).closest('tr').children('td').children('label').css('background-color'));    
-    },
-    function(){$(this).removeAttr('style')});
-});
+
 
 function fillTable() {
   var table = $('.board');
@@ -108,4 +133,12 @@ function roll() {
       $("#dice3").attr("style", x[rand3]);
        $("#roll").removeAttr("disabled");
   }, 600);   
+};
+
+function findId(name) {
+  for (i = 0;i<7;i++) {
+    if (dice1[i].name == name) {
+      return i;
+    };
+  };
 };
