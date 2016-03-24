@@ -39,30 +39,37 @@ var Commodity = function(id,name,img) {
   this.id  = id;
   this.name = name;
   this.img = img;
-  this.factor = 1;
-  this.up = function(int) {
-    if (!(this.factor + (up/100) >= 2)){
+  this.factor = 1.00;
+  this.up = function(amt) {
+    if (!(this.factor + (amt/100) >= 2)){
+      this.factor = (this.factor + amt/100).toFixed(2)*1;
+      $(".board tr:nth-child("+ Math.floor((1 -this.factor)*20 + 22) +") td:nth-child(" + (this.id + 1) + ")").append(this.img);
 
     } else {
       //play sound, animate?
+      this.factor = 1;
       $('#' + this.name).val($('#' + this.name).val()*2);
+      this.reset();
     };
   };
-  this.down = function(int) {
-     if (!(this.factor + (up/100) >= 2)){
+  this.down = function(amt) {
+     if (!(this.factor + (amt/100) <= 0)){
+      this.factor = (this.factor - amt/100).toFixed(2)*1;
+      $(".board tr:nth-child("+ Math.floor((1 -this.factor)*20 + 22) +") td:nth-child(" + (this.id + 1) + ")").append(this.img);
 
     } else {
+      this.factor = 1;
       $('#' + this.name).val(0);
+      this.reset();
     };
   };
-  this.pay = function(int) {
+  this.pay = function(amt) {
     if (this.factor >= 1) {
-      $('#cash').text($('#cash').text()*1 + (this.factor*int*$('#' + this.name).val()/100));
+      $('#cash').text(Math.floor($('#cash').text()*1 + (this.factor*amt*$('#' + this.name).val()/100)));
     }
   };
   this.reset = function() {
-    this.factor = 1;
-    this.img.remove();
+    this.factor = 1;    
     $(".board tr:nth-child(22) td:nth-child(" + (this.id + 1) + ")").append(this.img);
   };
 };
@@ -76,8 +83,6 @@ var gold = new Commodity(6, "Gold",$('<img src = "images/gold.png" class = "pawn
 var dice1 = [grain, industry, bonds, oil, silver, gold];
 var dice2 = ["up", "down", "pay", "down", "pay", "up"];
 var dice3 = [5, 10, 20, 10, 20, 5];
-
-
 
 function fillTable() {
   var table = $('.board');
@@ -106,8 +111,8 @@ function newGame() {
 }
 
 function resetPawns() {
-   for (i=1;i<7;i++) {
-    dice1[i-1].reset();
+   for (i=0;i<6;i++) {
+    dice1[i].reset();
    }
 };
 
@@ -131,14 +136,25 @@ function roll() {
       $("#dice1").attr("style", x[rand1]);
       $("#dice2").attr("style", x[rand2]);
       $("#dice3").attr("style", x[rand3]);
-       $("#roll").removeAttr("disabled");
-  }, 600);   
+      dice1[rand1][dice2[rand2]](dice3[rand3]);
+      calcEquity();
+      $("#roll").removeAttr("disabled");
+
+  }, 700);   
 };
 
 function findId(name) {
-  for (i = 0;i<7;i++) {
+  for (i = 0;i<6;i++) {
     if (dice1[i].name == name) {
       return i;
     };
   };
 };
+
+function calcEquity() {
+  var equity = $('#cash').text()*1;
+  for (i = 0; i<6;i++){
+    equity += dice1[i].factor * $('input')[i].value;
+  }
+  $('#equity').text(Math.floor(equity));
+}
