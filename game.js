@@ -65,7 +65,7 @@ var Commodity = function(id,name,img) {
   };
   this.pay = function(amt) {
     if (this.factor >= 1) {
-      $('#cash').text(Math.floor($('#cash').text()*1 + (this.factor*amt*$('#' + this.name).val()/100)));
+      $('#cash').text(Math.floor($('#cash').text()*1 + (amt*$('#' + this.name).val()/100)));
     }
   };
   this.reset = function() {
