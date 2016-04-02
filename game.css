@@ -86,6 +86,7 @@
   -webkit-transform: rotate3d(0, 0, 1, 70deg);
   transform: rotate3d(0, 0, 1, 70deg);
   z-index: 100;
+  
 }
 
 
@@ -167,7 +168,7 @@ input {
   margin-top: -9px;
 }
 
-#roll {
+.roll {
   display:inline-block;
   color: red;
   font-size: 25px;
@@ -178,12 +179,12 @@ input {
   text-align: center;
 }
 
-#roll:hover {
+.roll:hover {
   color:blue;
   background: red;
 }
 
-#roll:disabled {
+.roll:disabled {
   background: grey;
   color:black;
 }
@@ -202,4 +203,23 @@ input {
 
 .cash {
   margin-top:-100px;
+}
+
+.divstate {
+  color:grey;
+  position: absolute;
+  opacity: 0.7;
+  letter-spacing: 2px;
+}
+
+.payable {
+  margin-top: 210px;
+  transform: rotateZ(124deg);
+  margin-left: -45px;
+}
+
+.unpayable {
+  margin-top: 600px;
+  transform: rotateZ(-53deg);
+  margin-left: -35px;
 }
