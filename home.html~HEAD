@@ -2,20 +2,18 @@
 <html lang="en">
   <head>  
      <!-- CSS-->
-    <link rel="stylesheet" href="game.css"> 
-    <!--Javascript-->    
-    <script src="jquery-2.2.0.js"></script> 
-
-    <script src="game.js"></script>  
-
+    <link rel="stylesheet" href="game.css">     
     <title>Stock Ticker Classic</title>
   </head>
-
   <body>
     <div class= "equity">
-      <p>Equity: $<span id="equity">5000</span></p>
+      <p>Equity: $<span id="equity">5000</span></p>      
     </div>
+    <button class ="roll" onclick="newGame()" style = "position: absolute; margin-top:400px ">New Game</button>
     <div id = "board">
+
+      <h1 class = "divstate payable">DIVIDEND PAYING STOCKS</h1>
+      <h1 class = "divstate unpayable">DIVIDENDS NOT PAYABLE</h1>
       <table class = 'board'>
         <tr>
           <th>
@@ -120,7 +118,7 @@
       </div>     
     
       <div style = "float: right">
-        <button id = "roll">Roll!</button>
+        <button id = "roll" class = "roll">Roll!</button>        
         <div id="dice1" >
           <div class="sf f1 grain">Grain</div>
           <div class="sf f2 industry">Industry</div>
@@ -144,9 +142,12 @@
           <div class="sf f4">10</div>
           <div class="sf f5">20</div>
           <div class="sf f6">5</div>
-        </div>
-        
-      </div>
-    </div>            
+        </div>        
+      </div>      
+    </div>
+
+    <!--Javascript-->    
+    <script src="jquery-2.2.0.js"></script> 
+    <script src="game.js"></script>              
   </body>
 </html>

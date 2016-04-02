@@ -36,6 +36,7 @@ $(function() {
   });  
 });
 
+
 function movePawn(factor, id, img) {
   img.removeAttr('style');
   $(".board tr:nth-child("+ Math.floor((1 -factor)*20 + 22) +") td:nth-child(" + (id + 1) + ")").append(img);
@@ -51,7 +52,7 @@ var Commodity = function(id,name,img) {
       this.factor = (this.factor + amt/100).toFixed(2)*1;
       //this.img.slideUp(500, "linear", movePawn(this.factor, this.id,this.img));
       //this.img.animate({'margin-top': '-='+((amt/5)*18 + 30)},500).removeAttr('style');
-      movePawn(this.factor,this.id, this.img);                  
+      movePawn(this.factor,this.id, this.img);      
     } else {
       //play sound, animate?
       this.factor = 1;
@@ -64,7 +65,7 @@ var Commodity = function(id,name,img) {
       this.factor = (this.factor - amt/100).toFixed(2)*1;
       this.img.slideDown(500, "linear",movePawn(this.factor, this.id,this.img));
       //this.img.animate({'margin-top': '+=' +((amt/5)*18 + 30)},500).removeAttr('style');
-      movePawn(this.factor,this.id, this.img);                
+      movePawn(this.factor,this.id, this.img); 
     } else {
       this.factor = 1;
       $('#' + this.name).val(0);
@@ -169,3 +170,4 @@ function calcEquity() {
   }
   $('#equity').text(Math.floor(equity));
 }
+
