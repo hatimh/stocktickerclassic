@@ -36,9 +36,11 @@ $(function() {
   });  
 });
 
-
 function movePawn(factor, id, img) {
-  img.removeAttr('style');
+  console.log(img);
+  console.log(factor);
+  console.log(id);
+  img.removeAttr('style');  
   $(".board tr:nth-child("+ Math.floor((1 -factor)*20 + 22) +") td:nth-child(" + (id + 1) + ")").append(img);
 }
 
@@ -47,12 +49,17 @@ var Commodity = function(id,name,img) {
   this.name = name;
   this.img = img;
   this.factor = 1.00;
+  this.img.attr('data-id', id);
+  this.img.attr('data-factor', 1);
   this.up = function(amt) {
     if (!(this.factor + (amt/100) >= 2)){
       this.factor = (this.factor + amt/100).toFixed(2)*1;
-      //this.img.slideUp(500, "linear", movePawn(this.factor, this.id,this.img));
-      //this.img.animate({'margin-top': '-='+((amt/5)*18 + 30)},500).removeAttr('style');
-      movePawn(this.factor,this.id, this.img);      
+      this.img.attr('data-factor', this.factor);
+      this.img.animate({'margin-top': '-=' +((amt/5)*20)},500, "linear", function(){
+        var factor = parseFloat($(this).attr('data-factor'));        
+        $(this).removeAttr('style');
+        $(".board tr:nth-child("+ Math.floor((1 -factor)*20 + 22) +") td:nth-child(" + (id + 1) + ")").append($(this));       
+      });      
     } else {
       //play sound, animate?
       this.factor = 1;
@@ -63,9 +70,12 @@ var Commodity = function(id,name,img) {
   this.down = function(amt) {
     if (!(this.factor + (amt/100) <= 0)){
       this.factor = (this.factor - amt/100).toFixed(2)*1;
-      this.img.slideDown(500, "linear",movePawn(this.factor, this.id,this.img));
-      //this.img.animate({'margin-top': '+=' +((amt/5)*18 + 30)},500).removeAttr('style');
-      movePawn(this.factor,this.id, this.img); 
+      this.img.attr('data-factor', this.factor);
+      this.img.animate({'margin-top': '+=' +((amt/5)*20)},500, "linear", function(){
+        var factor = parseFloat($(this).attr('data-factor'));        
+        $(this).removeAttr('style');
+        $(".board tr:nth-child("+ Math.floor((1 -factor)*20 + 22) +") td:nth-child(" + (id + 1) + ")").append($(this));         
+      });      
     } else {
       this.factor = 1;
       $('#' + this.name).val(0);
@@ -78,7 +88,8 @@ var Commodity = function(id,name,img) {
     }
   };
   this.reset = function() {
-    this.factor = 1;    
+    this.factor = 1; 
+    this.img.attr('data-factor', this.factor);   
     $(".board tr:nth-child(22) td:nth-child(" + (this.id + 1) + ")").append(this.img);
   };
 };
@@ -149,10 +160,11 @@ function roll() {
       $("#dice2").attr("style", x[rand2]);
       $("#dice3").attr("style", x[rand3]);
       dice1[rand1][dice2[rand2]](dice3[rand3]);
-      calcEquity();
-      $("#roll").removeAttr("disabled");
-
-  }, 700);   
+      calcEquity();      
+  }, 500);   
+  setTimeout(function(){
+    $("#roll").removeAttr("disabled");
+  }, 1000);
 };
 
 function findId(name) {
